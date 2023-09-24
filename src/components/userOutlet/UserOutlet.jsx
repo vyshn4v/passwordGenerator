@@ -3,14 +3,18 @@ import logo from '../../assets/logo-web.jpg'
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 function UserOutlet() {
-    const [user, setUser] = useState(true)
+    const user = JSON.parse(sessionStorage.getItem('user'))
     const [dropDown, setDropDown] = useState(false)
     const navigate = useNavigate()
     const navigateTo = (url) => {
         navigate(url)
     }
+    const handleLogout = () => {
+        sessionStorage.clear()
+        navigate('/login')
+    }
     return (
-        <div className="min-h-screen flex justify-center bg-gradient-to-r from-orange-500/60 via-violet-600/60 to-violet-950/60 " >
+        <div className="min-h-screen flex justify-center bg-gradient-45 from-orange-500/40 via-violet-600/40 to-orange-500/40  " >
             <div className="container xl-auto z-50 ">
                 <div className="px-10 py-2">
                     <ul className="max-w-full flex flex-wrap items-center justify-between">
@@ -23,13 +27,13 @@ function UserOutlet() {
                                     user && <>
                                         <div style={{ position: 'relative' }}>
                                             <div onClickCapture={() => setDropDown((prev) => !prev)} className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-                                                <span className="font-medium text-gray-600 dark:text-gray-300">{'vyshnav p c'.slice(0, 1)}</span>
+                                                <span className="font-medium text-gray-600 dark:text-gray-300">{user?.name?.slice(0, 1)}</span>
                                             </div>
 
                                             <div id="dropdown" className={` z-10 ${!dropDown ? "hidden" : "block"} bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700`} style={{ position: 'absolute', right: '40px' }}>
                                                 <ul className="text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                                                     <li>
-                                                        <button onClick={() => setUser(prev => !prev)} type="button" className="m-2 w-[90%] text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Logout</button>
+                                                        <button onClick={() => handleLogout()} type="button" className="m-2 w-[90%] text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Logout</button>
                                                     </li>
                                                 </ul>
                                             </div>
