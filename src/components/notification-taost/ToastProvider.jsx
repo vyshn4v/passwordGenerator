@@ -33,9 +33,7 @@ function ToastProvider(props) {
             {createPortal(
                 <div className="toasts-wrapper">
                     {toasts.map((toast) => (
-                        <Toast key={toast.id} close={() => setTimeout(() => {
-                            close(toast.id)
-                        }, 5000)} toast={toast} />
+                        <Toast key={toast.id} close={close} toast={toast} />
                     ))}
                 </div>,
                 document.body
